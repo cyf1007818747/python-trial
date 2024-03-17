@@ -1,6 +1,5 @@
 from typing import List
 
-# initial version
 def q605_canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
     # do not have to insert any
     if n == 0:
@@ -39,6 +38,10 @@ def q605_canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
         flowerbedfilled[idx] = 1
         n -= 1
         idx += 2
+
+        # early return if no more flower to plant
+        if n <= 0:
+            return True
     
     # deal with last potision
     if flowerbedfilled[-2] == 0 and flowerbedfilled[-1] == 0:
