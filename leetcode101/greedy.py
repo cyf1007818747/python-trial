@@ -1,5 +1,6 @@
 from typing import List
 
+# leetcode q 605
 def q605_canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
     # do not have to insert any
     if n == 0:
