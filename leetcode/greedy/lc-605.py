@@ -1,7 +1,7 @@
 from typing import List
 
-# leetcode q 605
-def q605_canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
+# original solution
+def canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
     # do not have to insert any
     if n == 0:
         return True
@@ -50,4 +50,3 @@ def q605_canPlaceFlowers(flowerbed: List[int], n: int) -> bool:
         n -= 1
 
     return True if n <= 0 else False
-        
