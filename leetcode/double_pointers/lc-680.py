@@ -101,7 +101,7 @@ def validPalindrome_O_n(s: str) -> bool:
 
 def validPalindrome_O_n_helperFunc(s: str) -> bool:
     # start >= 0, end <= len(s) - 1
-    def checkPalidrome(start: int, end: int) -> (bool, int, int):
+    def checkPalidrome(start: int, end: int) -> (bool, int, int): # *
         if len(s) <= 1:
             return True
         
@@ -124,7 +124,7 @@ def validPalindrome_O_n_helperFunc(s: str) -> bool:
     # > s itself is not palindrome
     
     # >> try delete s[l]
-    isPalidromeNoL, _, _ = checkPalidrome(l + 1, r)
+    isPalidromeNoL, _, _ = checkPalidrome(l + 1, r) # *
     if isPalidromeNoL:
         return True
     

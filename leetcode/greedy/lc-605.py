@@ -14,7 +14,7 @@ def canPlaceFlowersInitial(flowerbed: List[int], n: int) -> bool:
             return True if n <= 1 else False
         return True if n == 0 else False
 
-    flowerbedfilled = flowerbed.copy()
+    flowerbedfilled = flowerbed.copy() # *
 
     # check first position
     if flowerbedfilled[0] == 0 and flowerbedfilled[1] == 0:
