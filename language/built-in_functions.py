@@ -77,6 +77,38 @@ def complex_trial():
     print("complex(1, 2) + complex(3, 4):", complex(1, 2) + complex(3, 4)) # >> (4+6j)
     print("complex(1, 2) * complex(3, 4):", complex(1, 2) * complex(3, 4)) # >> (-5+10j)
 
+def delattr_trial():
+    class MyClass:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    obj1 = MyClass()
+    print('obj1.a:', obj1.a) # >>: 1
+
+    delattr(obj1, 'a')
+    try: # *
+        print('obj1.a:', obj1.a) # raises error
+    except AttributeError as e: # *
+        print('error:', e) # >> error: 'MyClass' object has no attribute 'a'
+
+def divmod_trial():
+    print('divmod(10, 3):', divmod(10, 3)) # >>: (3, 1)
+    print('divmod(10.5, 3.2):', divmod(10.5, 3.2)) # >>: (3.0, 0.8999999999999995) # *
+    print('10.5 // 3.2:', 10.5 // 3.2) # >>: 3.0
+    print('10.5 % 3.2:',10.5 % 3.2) # >>: 0.8999999999999995
+ 
+def enumerate_trial():
+    list1 = ['a', 'b', 'c']
+    print("--enumerate(list1):")
+    for i, v in enumerate(list1):
+        print(i, v)
+
+    dict1 = {'a': 1, 'b': 2, 'c': 3}
+    print("--enumerate(dict1.items()):")
+    for i, (k, v) in enumerate(dict1.items()): # *
+        print(i, k, v)
+
 def repr_trial(): 
     # repr of funcitons
     print("repr(all_trial):", repr(all_trial)) # special output of <function all_trial at 0x10ea894e0>
@@ -96,4 +128,4 @@ def repr_trial():
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
     
-complex_trial()
+enumerate_trial()
