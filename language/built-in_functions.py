@@ -54,6 +54,7 @@ def callable_trial():
     
     obj1 = MyClass()
 
+    print("callable(None):", callable(None)) # >>: False
     print("callable(func1):", callable(func1)) # >>: True
     print('callable(func1()):', callable(func1())) # >>: False
     print("callable(MyClass):", callable(MyClass)) # >>: True
@@ -109,6 +110,37 @@ def enumerate_trial():
     for i, (k, v) in enumerate(dict1.items()): # *
         print(i, k, v)
 
+# executes a string into the evaluated result
+# caution: may cause security issues
+def eval_trial():
+    x = 1
+    print('eval("x + 1"):', eval("x + 1")) # >>: 2
+    y = 'print(234)'
+    eval(y) # >> 234 # *
+
+def filter_trial():
+    list0 = [-1, 0, 1, 2]
+    print('list0:', list0)
+    filter(None, list0) # does not change the list
+    print('list0:', list0)
+    list0_filtered0 = filter(None, list0)
+    print('list0_filtered0:', list0_filtered0) # >>: <filter object at 0x10ea8b4c0> # *
+    list0_filtered1 = list(filter(None, list0))
+    print('list0_filtered:', list0_filtered1) # >>: [-1, 1, 2]
+    list0_filtered2 = list(filter(lambda x: x > 0, list0)) # *
+    print('list0_filtered2:', list0_filtered2) # >>: [1, 2]
+
+    def is_even(n):
+        return n % 2 == 0
+
+    list1 = [1, 2, 3, 4, 5]
+    list1_filtered0 = list(filter(is_even, list1))
+    print('list1_filtered0:', list1_filtered0) # >>: [2, 4]
+    list1_filtered1 = [num for num in list1 if is_even(num+1)] # *
+    print('list1_filtered1:', list1_filtered1) # >>: [1, 3, 5]
+    list1_filtered2 = [item for item in list1 if item % 3 == 1] # *
+    print('list1_filtered2:', list1_filtered2) # >>: [1, 4]
+
 def repr_trial(): 
     # repr of funcitons
     print("repr(all_trial):", repr(all_trial)) # special output of <function all_trial at 0x10ea894e0>
@@ -127,5 +159,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-    
-enumerate_trial()
+filter_trial()
