@@ -13,6 +13,20 @@ from typing import List
 
 # passed all tests on leetcode
 def flipOtoX(board: List[List[str]]) -> None:
+    directions = [-1, 0, 1, 0, -1]
+
+    def dfs(board: List[List[str]], i: int, j: int, m: int, n: int) -> None:
+        if 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == 'O': # *
+            # print('---- flipped at {}, {}'.format(i, j))
+            board[i][j] = 'N'
+        else:
+            return
+
+        for idx in range(0, 4):
+            row = i + directions[idx]
+            col = j + directions[idx+1]
+            dfs(board, row, col, m, n)
+
     m, n = len(board), len(board[0])
 
     # empty matrix => no flip
@@ -42,18 +56,6 @@ def flipOtoX(board: List[List[str]]) -> None:
                 board[i][j] = 'O'
 
     return None
-
-def dfs(board: List[List[str]], i: int, j: int, m: int, n: int) -> None:
-    if 0 <= i <= m - 1 and 0 <= j <= n - 1 and board[i][j] == 'O': # *
-        # print('---- flipped at {}, {}'.format(i, j))
-        board[i][j] = 'N'
-    else:
-        return
-
-    for idx in range(0, 4):
-        row = i + directions[idx]
-        col = j + directions[idx+1]
-        dfs(board, row, col, m, n)
 
 
 # improve code style
