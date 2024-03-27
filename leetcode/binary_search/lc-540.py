@@ -32,7 +32,7 @@ def singleNonDuplicate(nums: List[int]) -> int:
         
     l, r = 0, numsLen - 1
     while (l <= r):
-        mid = l + (r - l) // 2
+        mid = l + (r - l) // 2 # *
         relativePos = checkIndex(mid)
         if relativePos == 0:
             return nums[mid]
