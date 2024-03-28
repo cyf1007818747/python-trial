@@ -1,0 +1,7 @@
+As mentioned in the Overview, Python distinguishes between binary and text I/O. 
+Files opened in binary mode (including 'b' in the mode argument) return contents as 
+bytes objects without any decoding. In text mode (the default, or when 't' is included 
+in the mode argument), the contents of the file are returned as str, the bytes having 
+been first decoded using a platform-dependent encoding or using the specified encoding if given.File appended by Chris at 2024-03-29 01:17:21.114291
+File appended by Chris at 2024-03-29 01:17:32.267529
+File appended by Chris at 2024-03-29 01:17:35.392756

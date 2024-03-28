@@ -364,15 +364,66 @@ def max_trial():
 
 # min_trial is similar to max_trial
 
-
 # int -> str
 def oct_trial():
     print('oct(-10):', oct(-10)) # >>: -0o12
     print('oct(17):', oct(17)) # >>: 0o21
 
+def open_trial(file_format):
+    if file_format == 'txt':
+        with open('../resources/test-text.txt', 'r') as file: # *
+            print('file:\n', file) 
+            # read 100 characters. If no arg, read the whole file # *
+            file_read = file.read(100)
+            print('file_read:\n', file_read) 
+            print('-----------------')
+            for line in file: # starts at the end of file_read  # *
+                print(line, end='')
+            print()
 
+    if file_format == 'json':
+        with open('../resources/package.json', 'r') as file:
+            import json
+            json_data = json.load(file)
+            print('json_data:\n', json_data)
+            print('len(json_data):', len(json_data))
+            # // print('json_data[scripts]:', json_data[scripts]) invalid
+            print('json_data["scripts"]:\n', json_data["scripts"])
+            print('json_data["scripts"]["build]:\n', json_data["scripts"]["build"])
+
+            json_string = '{"name": "John Doe", "age": 30, "city": "New York"}'
+            json_data2 = json.loads(json_string) # NOTE: it is loads here, where s represents string
+            print('json_data2["name"]:', json_data2["name"])
+
+    if file_format == 'csv':
+        import csv
+        with open('../resources/example.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            # for row in csv_reader:
+            #     print(row)
+            #     print('row[0]:', row[0])
+
+            for i in range(2):
+                next(csv_reader)
+
+            for i, row in enumerate(csv_reader):
+                print(i, '--', row[2])
+
+    if file_format == 'binary':
+        with open('../resources/test-image.png', 'rb') as file:
+            print('file:\n', file)
+            file_read100 = file.read(100)
+            print('file_read100:\n', file_read100)
+            print('---- rest of the file ----')
+            # print(file.read()) # very large output
+            # for item in file:
+            #     print(len(item))
     
-
+    if file_format == "txt-append":
+        import datetime
+        with open('../resources/test-text.txt', 'a') as file:
+            file.write("File appended by Chris at "+str(datetime.datetime.now())+"\n")
+    
 
 def repr_trial(): 
     # repr of funcitons
@@ -392,4 +443,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-oct_trial()
+open_trial('txt-append')
