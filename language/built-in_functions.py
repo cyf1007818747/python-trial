@@ -206,6 +206,95 @@ def globals_trial():
     # the returned type is dict[str, Any]
     print('globals():', globals()) # a dictionary of global variables
 
+def hasattr_trial():
+    class MyClass:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    obj1 = MyClass()
+    print('hasattr(obj1, "a"):', hasattr(obj1, "a")) # >>: True
+    print('hasattr(obj1, "c"):', hasattr(obj1, "c")) # >>: False
+
+def hash_trial():
+    print('hash(1):', hash(1)) # >>: 1
+    print('hash("abc"):', hash("abc")) # >>: 542026347
+    print('hash((1, 2, 3)):', hash((1, 2, 3))) # >>: 2528502973977326415
+    try:
+        print('hash([1, 2, 3]):', hash([1, 2, 3]))
+    except TypeError as e:
+        print('Error:', e) # Error: unhashable type: 'list'
+        
+def hex_trial():
+    print('hex(-10):', hex(-10)) # >>: -0xa
+    print('hex(17):', hex(17)) # >>: 0x11
+
+def id_trial():
+    a = 1
+    b = 1
+    print('id(a):', id(a)) # >>: 4375034912
+    print('id(b):', id(b)) # >>: 4375034912
+    print('id(1):', id(1)) # >>: 4375034912
+    print('id(1.0):', id(1.0)) # >>: 4377989840
+    print('id("abc"):', id("abc")) # >>: 4374579320
+    print('id("abc"):', id("abc")) # >>: 4374579320
+    print('id("abc"): ', id("ab"+"c")) # >>: 4374579320
+
+def input_trial():
+    print('input("Enter a number: ")') # waits for input
+    num = input("Enter a number: ")
+    print('num:', num)
+    import sys
+    print("Enter your paragraph. Signal EOF with Ctrl+D (or Ctrl+Z on Windows) when done:")
+    paragraph = sys.stdin.read()
+    print("\nYou entered:")
+    print(paragraph)
+
+def int_trial():
+    print('int(1.1):', int(1.1)) # >>: 1
+    print('int("1234"):', int("1234")) # >>: 1234
+    print('int("1_234"):', int("1_234")) # >>: 1234 # *
+    # print('int("0b10000"):', int("0b10000")) !! raises error
+    # when and ONLY when you specify base = 0 can you use prefix in string to specify base (like below) # *
+    print('int("0b10000"):', int("0b10000", 0))
+    print('int("0x10000"):', int("0x10000", 0))
+    # print('int("1,234"):', int("1,234")) !! raises error
+    print('int("256", 16):', int("256", 16)) # >>: 598
+    # print('int(100, 16):', int(100, 16)) !! raises error since 100 is not str while base is given
+    # the second arg base means the given string is represented in that base # *
+    print('int("-100", 16):', int("-100", 16)) # >>: -256 # *
+    # print('int("-100", -16):', int("-100", -16)) # base can only be >= 2 and <= 36, or 0
+    print('int("-100", 0):', int("-100", 0))
+
+def isinstance_trial():
+    class MyClass:
+        pass
+
+    obj1 = MyClass()
+    print('isinstance(obj1, MyClass):', isinstance(obj1, MyClass)) # >>: True
+    print('isinstance(obj1, int):', isinstance(obj1, int)) # >>: False
+    print('isinstance(1, int):', isinstance(1, int)) # >>: True
+    print('isinstance(1, (int, float)):', isinstance(1, (int, float))) # >>: True # *
+    print('isinstance(1.5, int | float):', isinstance(1.5, int | float)) # >>: True # *
+    print('isinstance(1, int | MyClass):', isinstance(1, int | MyClass)) # >>: True
+    print('isinstance(1.5, int | MyClass):', isinstance(1.5, int | MyClass)) # >>: False
+
+def issubclass_trial():
+    class MyClass:
+        pass
+
+    class MySubClass(MyClass):
+        pass
+
+    print('issubclass(MySubClass, MyClass):', issubclass(MySubClass, MyClass)) # >>: True # *
+    print('issubclass(MySubClass, MyClass):', issubclass(MyClass, MySubClass)) # >>: False
+    print('issubclass(MySubClass, int):', issubclass(MySubClass, int)) # >>: False
+    print('issubclass(MySubClass, object):', issubclass(MySubClass, object)) # >>: True # *
+    print('issubclass(int, object):', issubclass(int, object)) # >>: True # *
+    print('issubclass(MySubClass, int | MyClass):', issubclass(MySubClass, int | MyClass)) # >>: True
+    print('issubclass(int, MyClass | float):', issubclass(int, MyClass | float)) # >>: False
+
+
 
 def repr_trial(): 
     # repr of funcitons
@@ -225,4 +314,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-globals_trial()
+issubclass_trial()
