@@ -141,6 +141,72 @@ def filter_trial():
     list1_filtered2 = [item for item in list1 if item % 3 == 1] # *
     print('list1_filtered2:', list1_filtered2) # >>: [1, 4]
 
+def float_trial():
+    print('float(1):', float(1)) # >>: 1.0
+    print('float("1.1"):', float("1.1")) # >>: 1.1
+    try:
+        print('float("1.1a"):', float("1.1a")) # raises error
+    except ValueError as e:
+        print('error calling float("1.1a"):', e)
+    print('float("1.1e2"):', float("1.1e2")) # >>: 110.0 # *
+    print('float("1.1E-003"):', float("1.1E-003")) # >>: 0.0011 # *
+    print('float("  1.1e+2\n "):', float("  1.1e+2\n ")) # >>: 110.0 # spaces and newlines are ignored
+    print('float("nan"):', float("nan")) # >>: nan
+    print('float("inf"):', float("inf")) # >>: inf
+    print('float("-InFiNity"):', float("-InFiNity")) # >>: -inf # case-insensitive
+    
+# case insensitive
+# format returns a string !!
+def format_trial():
+    print('format(123, "d"):', format(123, "d")) # >>: 123 # decimal representation
+    print('format(123, "x"):', format(123, "x")) # >>: 7b # hexadecimal
+    print('format(123, "b"):', format(123, "b")) # >>: 1111011 # binary # *
+    print('format(123, "o"):', format(123, "o")) # >>: 173 # octal
+    print('format(123, "e"):', format(123, "e")) # >>: 1.230000e+02 # *
+    print('format(123456, "0.3e"):', format(123456, "0.3e")) # >>: 1.235e+05
+    print('format(123, "f"):', format(123, "f")) # >>: 123.000000
+    print('format(123, "0.4f"):', format(123, "0.4f")) # >>: 123.0000 # *
+    print('format(123, "g"):', format(123, "g")) # >>: 123 # general format
+    print('format(123, "n"):', format(123, "n")) # >>: 123 # number format
+    print('-----------------')
+    print('"ab {:8} cd".format(123):', "ab {:8} cd".format(123)) # >>: ab      123 cd # *
+    print('"ab {:<8} cd".format(123):', "ab {:<8} cd".format(123)) # >>: ab 123      cd
+    print('"ab {:<8} cd".format(123456):', "ab {:<8} cd".format(123456)) # >>: ab 123456  cd
+    print('"ab {:>8} cd".format(123):', "ab {:>8} cd".format(123)) # >>: ab      123 cd
+    print('"ab {:^8} cd".format(123):', "ab {:^8} cd".format(123)) # >>: ab   123    cd
+    # Places the sign to the left most position
+    print('"ab {:=8} cd".format(-123):', "ab {:=8} cd".format(-123)) # >>: ab -    123 cd
+    print('"ab {:+8} cd".format(123):', "ab {:+8} cd".format(123)) # >>: ab     +123 cd
+    # Use a space to insert an extra space before positive numbers (and a minus sign before negative numbers)
+    print('"ab {: } cd".format(123):', "ab {: } cd".format(123)) # >>: ab  123 cd
+    print('"ab {: } cd".format(-123):', "ab {: } cd".format(-123)) # >>: ab -123 cd
+    print('"ab {:,} cd".format(12345678):', "ab {:,} cd".format(12345678)) # >>: ab 12,345,678 cd
+    print('"ab {:_} cd".format(123):', "ab {:_} cd".format(12345678)) # >>: ab 12_345_678 cd
+    # the meanings of combinations are very case specific
+    print('"ab {:,<8} cd".format(12345):', "ab {:,<8} cd".format(12345)) # >>: ab 12345,,, cd
+    print('"ab {:b} cd".format(123):', "ab {:b} cd".format(123)) # >>: ab 1111011 cd # *
+    # the rest is the same as the first few lines above
+ 
+# the attribute argument is a string
+def getattr_trial():
+    class MyClass:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    obj1 = MyClass()
+    print('getattr(obj1, "a"):', getattr(obj1, "a")) # >>: 1
+    # *
+    try:
+        print('getattr(obj1, "c"):', getattr(obj1, "c"))
+    except AttributeError as e:
+        print('Error:', e) # >> Error: 'MyClass' object has
+
+def globals_trial():
+    # the returned type is dict[str, Any]
+    print('globals():', globals()) # a dictionary of global variables
+
+
 def repr_trial(): 
     # repr of funcitons
     print("repr(all_trial):", repr(all_trial)) # special output of <function all_trial at 0x10ea894e0>
@@ -159,4 +225,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-filter_trial()
+globals_trial()
