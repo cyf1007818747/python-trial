@@ -17,6 +17,7 @@ def any_trial():
     print('bool_list2:', any(bool_list2))
     print('bool_list3:', any(bool_list3))
 
+# int -> str
 def bin_trial():
     num1 = 10
     num2 = -10
@@ -294,6 +295,83 @@ def issubclass_trial():
     print('issubclass(MySubClass, int | MyClass):', issubclass(MySubClass, int | MyClass)) # >>: True
     print('issubclass(int, MyClass | float):', issubclass(int, MyClass | float)) # >>: False
 
+def len_trial():
+    print('len([1, 2, 3]):', len([1, 2, 3])) # >>: 3
+    print('len("abc"): ', len("abc")) # >>: 3
+    print('len({}):', len({})) # >>: 0
+    try:
+        print('len(1):', len(1)) # raises error # *
+    except TypeError as e:
+        print('Error:', e)
+    try:
+        print('len(range(2**100)):', len(range(2**100))) # raises error
+    except OverflowError as e:
+        print('Error:', e)
+    except Exception as e: # this is to catch all other exceptions # *
+        print('Error-:', e)
+
+def locals_trial():
+    # the returned type is dict[str, Any]
+
+    a = 1
+    mystr = "csfbvser"
+    myarr = [1,2,3]
+    print('locals() in parent func:', locals()) # a dictionary of local variable
+    
+    def nested_func():
+        b = 2
+        print('locals() in nested func:', locals())
+        myarr.append(4)
+
+    nested_func()
+
+    if True:
+        c = 3
+        print('locals() in if block:', locals())
+
+def map_trial():
+    list1 = [1, 2, 3]
+
+    map(lambda x: x, list1) # does not change the list
+    print('list1:', list1) # >>: [1, 2, 3]
+
+    list1_mapped0 = map(lambda x: x, list1)
+    print('list1_mapped0:', list1_mapped0) # >>: <map object at 0x10ea8b4c0>
+
+    list1_mapped1 = list(map(lambda x: x, list1)) # have to wrap with a list # *
+    print('list1_mapped1:', list1_mapped1) # >>: [1, 2, 3] 
+
+    list1_mapped2 = list(map(lambda x: x + 1, list1)) # *
+    print('list1_mapped2:', list1_mapped2) # >>: [2, 3, 4]
+    
+    def square(x):
+        return x * x
+
+    list1_mapped3 = list(map(square, list1))
+    print('list1_mapped3:', list1_mapped3) # >>: [1, 4, 9]
+
+    list1_mapped4 = [item*6 for item in list1 if item % 2 == 1] # *
+    print('list1_mapped4:', list1_mapped4) # >>: [6, 18]
+
+# If multiple items are maximal, the function returns the first one encountered
+def max_trial():
+    print('max(1, 2, 3):', max(1, 2, 3)) # >>: 3
+    print('max([1, 2, 3]):', max([1, 2, 3])) # >>: 3
+    print('max("abc"): ', max("abc")) # >>: c # *
+    list0 = range(100, 200)
+    print('max(list0):', max(list0)) # >>: 199
+    print(max(list0, key=lambda x: x % 10)) # >>: 109 # *
+
+# min_trial is similar to max_trial
+
+
+# int -> str
+def oct_trial():
+    print('oct(-10):', oct(-10)) # >>: -0o12
+    print('oct(17):', oct(17)) # >>: 0o21
+
+
+    
 
 
 def repr_trial(): 
@@ -314,4 +392,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-issubclass_trial()
+oct_trial()
