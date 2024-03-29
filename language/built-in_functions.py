@@ -255,16 +255,16 @@ def int_trial():
     print('int(1.1):', int(1.1)) # >>: 1
     print('int("1234"):', int("1234")) # >>: 1234
     print('int("1_234"):', int("1_234")) # >>: 1234 # *
-    # print('int("0b10000"):', int("0b10000")) !! raises error
+    # // print('int("0b10000"):', int("0b10000")) !! raises error (see the next line)
     # when and ONLY when you specify base = 0 can you use prefix in string to specify base (like below) # *
     print('int("0b10000"):', int("0b10000", 0))
     print('int("0x10000"):', int("0x10000", 0))
     # print('int("1,234"):', int("1,234")) !! raises error
     print('int("256", 16):', int("256", 16)) # >>: 598
-    # print('int(100, 16):', int(100, 16)) !! raises error since 100 is not str while base is given
+    # // print('int(100, 16):', int(100, 16)) !! raises error since 100 is not str while base is given
     # the second arg base means the given string is represented in that base # *
     print('int("-100", 16):', int("-100", 16)) # >>: -256 # *
-    # print('int("-100", -16):', int("-100", -16)) # base can only be >= 2 and <= 36, or 0
+    # // print('int("-100", -16):', int("-100", -16)) # raises error: base can only be >= 2 and <= 36, or 0
     print('int("-100", 0):', int("-100", 0))
 
 def isinstance_trial():
@@ -424,6 +424,71 @@ def open_trial(file_format):
         with open('../resources/test-text.txt', 'a') as file:
             file.write("File appended by Chris at "+str(datetime.datetime.now())+"\n")
     
+def ord_trial():
+    print('ord("A"):', ord("A")) # >>: 65
+    print('ord("a"):', ord("a")) # >>: 97
+    print('ord("€"):', ord("€")) # >>: 8364
+    # // print('ord("abc"):', ord("abc")) # raises error
+
+def pow_trial():
+    print('pow(2, 3):', pow(2, 3)) # >>: 8
+    print('2**5:', 2**5) # >>: 32
+    print('pow(2, 3, 5):', pow(2, 3, 5)) # >>: 3 # 2^3 % 5 = 8 % 5 = 3
+
+def print_trial():
+    print('abc', 'def', 'ghi') # >>: abc def ghi
+    print('abc', 'def', 'ghi', sep=', ') # >>: abc, def, ghi
+    print('abc', 'def', 'ghi', end='---') # >>: abc def ghi---
+    print('abc', 'def', 'ghi', sep='-', end='\n\n\n') # >>: abc-def-ghf 
+    # print with file arg
+    import sys
+    # // print('print to file test 1:', file=sys.stdin) raises error
+    print('print to file test 2', file=sys.stdout)
+    print('print to file test 3', file=sys.stderr)
+    # txt_file = open('../resources/test-text.txt', 'w') !! this will overwrite the whole file
+    txt_file = open('../resources/test-text.txt', 'a')
+    print('print to file test 4', file=txt_file)
+
+# range trial is omitted
+    
+def reversed_trial():
+    list1 = [1, 2, 3]
+    print('reversed(list1):', reversed(list1)) # >>: <list_reverseiterator object at 0x10f9a1d20>
+    list1_reversed = list(reversed(list1))
+    print('list1_reversed:', list1_reversed) # >>: [3, 2, 1]
+
+def round_trial():
+    print('round(1.1):', round(1.1)) # >>: 1
+    print('round(1.5):', round(1.5)) # >>: 2
+    print('round(1.6):', round(1.6)) # >>: 2
+    print('round(1.123456, 3):', round(1.123456, 3)) # >>: 1.123
+    print('round(1.128456, 2):', round(1.128456, 2)) # >>: 1.13
+    print('round(1.123456, 0):', round(1.123456, 0)) # >>: 1.0
+    print('round(1234.5678):', round(1234.5678)) # >>: 1235
+    print('round(1234.5678, -3):', round(1234.5678, -3)) # >>: 1000.0
+
+def setattr_trial():
+    class MyClass:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    obj1 = MyClass()
+    obj1.a = 10
+    print('obj1.a:', obj1.a) # >>: 10
+    setattr(obj1, 'a', 100)
+    print('obj1.a:', obj1.a) # >>: 100
+
+def slice_trial():
+    list1 = [1, 2, 3, 4, 5]
+    print('list1[1:3]:', list1[1:3]) # >>: [2, 3]
+    print('list1[1:]:', list1[1:]) # >>: [2, 3, 4, 5]
+    print('list1[:3]:', list1[:3]) # >>: [1, 2, 3]
+    print('list1[:]:', list1[:]) # >>: [1, 2, 3, 4, 5]
+    print('list1[1:4:2]:', list1[1:4:2]) # >>: [2, 4]
+    print('list1[::2]:', list1[::2]) # >>: [1, 3, 5]
+    print('list1[::-1]:', list1[::-1]) # >>: [5, 4, 3, 2, 1]
+    print('list1[::-2]:', list1[::-2]) # >>: [5, 3, 1]
 
 def repr_trial(): 
     # repr of funcitons
@@ -443,4 +508,4 @@ def repr_trial():
     p1 = Point(1, 2)
     print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
 
-open_trial('txt-append')
+slice_trial()
