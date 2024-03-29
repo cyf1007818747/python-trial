@@ -451,6 +451,24 @@ def print_trial():
 
 # range trial is omitted
     
+def repr_trial(): 
+    # repr of funcitons
+    print("repr(all_trial):", repr(all_trial)) # special output of <function all_trial at 0x10ea894e0>
+    print("repr(all_trial()):", repr(all_trial())) # calls the function and returns None
+
+    # repr of classes
+    print("-----------------")
+    class Point:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        def __repr__(self):
+            return f'Point({self.x}, {self.y}), created by Chris on Mar 27'
+    
+    p1 = Point(1, 2)
+    print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
+    
 def reversed_trial():
     list1 = [1, 2, 3]
     print('reversed(list1):', reversed(list1)) # >>: <list_reverseiterator object at 0x10f9a1d20>
@@ -485,27 +503,118 @@ def slice_trial():
     print('list1[1:]:', list1[1:]) # >>: [2, 3, 4, 5]
     print('list1[:3]:', list1[:3]) # >>: [1, 2, 3]
     print('list1[:]:', list1[:]) # >>: [1, 2, 3, 4, 5]
-    print('list1[1:4:2]:', list1[1:4:2]) # >>: [2, 4]
-    print('list1[::2]:', list1[::2]) # >>: [1, 3, 5]
-    print('list1[::-1]:', list1[::-1]) # >>: [5, 4, 3, 2, 1]
-    print('list1[::-2]:', list1[::-2]) # >>: [5, 3, 1]
+    print('list1[1:4:2]:', list1[1:4:2]) # >>: [2, 4] # *
+    print('list1[::2]:', list1[::2]) # >>: [1, 3, 5] # *
+    print('list1[::-1]:', list1[::-1]) # >>: [5, 4, 3, 2, 1] # *
+    print('list1[::-2]:', list1[::-2]) # >>: [5, 3, 1] # *
 
-def repr_trial(): 
-    # repr of funcitons
-    print("repr(all_trial):", repr(all_trial)) # special output of <function all_trial at 0x10ea894e0>
-    print("repr(all_trial()):", repr(all_trial())) # calls the function and returns None
-
-    # repr of classes
-    print("-----------------")
-    class Point:
-        def __init__(self, x, y):
-            self.x = x
-            self.y = y
-
-        def __repr__(self):
-            return f'Point({self.x}, {self.y}), created by Chris on Mar 27'
+def sorted_trial():
+    list2 = ['b', 'a', 'c']
+    print('sorted(list2):', sorted(list2)) # >>: ['a', 'b', 'c'] !! does not modify list2
+    print('sorted(list2, reverse=True):', sorted(list2, reverse=True)) # >>: ['c', 'b', 'a']
+    list3 = ["apple", "banana", "blueberry", "cherry", "orange","e", "d", "d", "apricot"]
+    list3_sorted = sorted(list3, key=lambda s: (s[0], -ord(s[1]) if len(s) > 1 else 0)) # *
+    print('list3_sorted:', list3_sorted)
     
-    p1 = Point(1, 2)
-    print('repr(p1):', repr(p1)) # >> repr(p1): Point(1, 2), created by Chris on Mar 27
+def str_trial():
+    print('str(1):', str(1)) # >>: 1
+    print('str(1.1):', str(1.1)) # >>: 1.1
+    print('str([1, 2, 3]):', str([1, 2, 3])) # >>: [1, 2, 3]
+    map1 = {"a": 1, "b": 2}
+    print('str(map1):', str(map1)) # >>: {'a': 1, 'b': 2} # *
+    print('str((1, 2, 3)):', str((1, 2, 3))) # >>: (1, 2, 3)
+    print('str(True):', str(True)) # >>: True
+    print('str(False):', str(False)) # >>: False
+    
+def sum_trial():
+    list1 = [1, 2, 3]
+    print('sum(list1):', sum(list1)) # >>: 6
+    print('sum(list1, 10):', sum(list1, 10)) # >>: 16
 
-slice_trial()
+def super_trial():
+    class Parent:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    class Child(Parent):
+        def __init__(self):
+            super().__init__() # *
+            self.c = 3
+
+    obj1 = Child()
+    print('obj1.a:', obj1.a) # >>: 1
+    print('obj1.b:', obj1.b) # >>: 2
+    print('obj1.c:', obj1.c) # >>: 3
+
+def tuple_trial():
+    print('tuple([1, 2, 3]):', tuple([1, 2, 3])) # >>: (1, 2, 3)
+    print('tuple("abc"): ', tuple("abc")) # >>: ('a', 'b', 'c')
+    print('tuple({1, 2, 3}):', tuple({1, 2, 3})) # >>: (1, 2, 3)
+    print('tuple((1, 2, 3)):', tuple((1, 2, 3))) # >>: (1, 2, 3)
+    map1 = {"a": 1, "b": 2}
+    print('tuple(map1):', tuple(map1)) # >>: ('a', 'b')
+    print('list(map1):', list(map1)) # >>: ['a', 'b']
+    print('tuple(map1.items()):', tuple(map1.items())) # >>: (('a', 1), ('b', 2))
+    print('list(map1.items()):', list(map1.items())) # >>: [('a', 1), ('b', 2)] inner is still tuple # *
+
+def type_trial():
+    print('type(1):', type(1)) # >>: <class 'int'>
+    print('type("abc"):', type("abc")) # >>: <class 'str'>
+    print('type([1, 2, 3]):', type([1, 2, 3])) # >>: <class 'list'>
+    print('type((1, 2, 3)):', type((1, 2, 3))) # >>: <class 'tuple'>
+    print('type({1, 2, 3}):', type({1, 2, 3})) # >>: <class 'set'>
+    print('type({1: 2, 3: 4}):', type({1: 2, 3: 4})) # >>: <class 'dict'>
+    print('type(1) == int:', type(1) == int) # >>: True
+    print('type({1: 2, 3: 4}) == dict:', type({1: 2, 3: 4}) == dict) # >>: <class 'dict'>
+
+def vars_trial():
+    # vars() without arg returns the local variables
+    abc = 123
+    de = 456
+    print('vars():', vars()) # >>: {'abc': 123, 'de': 456}
+
+    # vars() on class
+    class MyClass:
+        def __init__(self):
+            self.a = 1
+            self.b = 2
+
+    obj1 = MyClass()
+    print('vars(obj1):', vars(obj1)) # >>: {'a': 1, 'b': 2}
+
+    # vars() on module
+    import sys
+    # print('vars(sys):\n', vars(sys))
+    print('vars(sys):\n', vars(sys)['getrefcount'])
+
+def zip_trial():
+    list1 = [1, 2, 3]
+    list2 = ['a', 'b', 'c']
+    print('zip(list1, list2):', zip(list1, list2)) # >>: <zip object at 0x10f9a1d20>
+    list3 = list(zip(list1, list2))
+    print('list3:', list3) # >>: [(1, 'a'), (2, 'b'), (3, 'c')]
+    list4 = list(zip(list1, list2, list1)) 
+    print('list4:', list4) # >>: [(1, 'a', 1), (2, 'b', 2), (3, 'c', 3)]
+    list5 = list(zip(list1, [6,7,8,9,10])) # lengths can be different # *
+    print('list5:', list5) # >>: [(1, 6), (2, 7), (3, 8)]
+    list6 = list(zip([6,7,8,9,10], [11,12,13], []))
+    print('list6:', list6) # >>: []
+
+    # use zip to transpose matrix
+    matrix = [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 10, 11, 12]
+    ]
+    
+    transposed = list(map(list, zip(*matrix)))
+    print('transposed:', transposed)
+
+    transposed2 = [[row[j] for row in matrix] for j in range(len(matrix[0]))]
+    print('transposed2:', transposed2)
+
+    transposed3 = [[ matrix[i][j] for i in range(len(matrix))] for j in range(len(matrix[0]))]
+    print('transposed3:', transposed3)
+
+zip_trial()
