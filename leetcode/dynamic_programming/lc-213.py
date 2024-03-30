@@ -34,6 +34,7 @@ class Solution:
 
 # reduce space complexity by using status pointers (prev2, prev and cur)
 # very hard to think !! not recommended ! better use solution 3
+# passed all leetcode tests
 class Solution2:
     def rob(self, nums: List[int]) -> int:
         if len(nums) == 1:
@@ -66,6 +67,7 @@ class Solution2:
 
 
 # reduce space complexity by directly modifying original dp
+# passed all leetcode tests
 class Solution3:
     def rob(self, nums: List[int]) -> int:
         if len(nums) == 1:
