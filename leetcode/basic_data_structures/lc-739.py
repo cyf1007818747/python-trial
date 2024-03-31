@@ -23,3 +23,5 @@ class Solution:
             stack.append(i)
 
         return rtn
+    
+# todo: practice more on monotonic stack
