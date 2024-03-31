@@ -1,6 +1,8 @@
 from typing import List
 
+# data structure: hash table / dict
 
+# passed all leetcode cases
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         if len(nums) == 1:

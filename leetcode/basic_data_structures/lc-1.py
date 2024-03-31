@@ -1,5 +1,7 @@
 from typing import List
 
+# data structure: hash table / dict
+
 # given nums >= 2
 # if len nums == 2: return nums
 # use a dict to store num: index

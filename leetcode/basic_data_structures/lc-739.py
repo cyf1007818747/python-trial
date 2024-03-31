@@ -1,6 +1,6 @@
-
-
 from typing import List
+
+# data structure: stack
 
 # ! recite !!
 # this is you recite and rewrite from leetcode.cn
