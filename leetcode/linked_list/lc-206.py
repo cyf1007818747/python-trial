@@ -83,4 +83,26 @@ class Solution3:
         head.next = None # *
 
         return new_head
+    
+
+# rewrite on April 06
+# slightly more intuitive than solution3
+# AC
+class Solution4:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        new_head = None
+
+        def recursiveReverse(node: Optional[ListNode]):
+            # // if not node or if not node.next: # *
+            if not node or not node.next: # *
+                nonlocal new_head
+                new_head = node
+                return
+
+            recursiveReverse(node.next)
+            node.next.next = node
+            node.next = None
+            
+        recursiveReverse(head)
+        return new_head
         
