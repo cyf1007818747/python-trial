@@ -1,5 +1,6 @@
+import re
+
 def common_log_format_example():
-    import re
     line = '127.0.0.1 - rj [13/Nov/2019:14:34:30 -0000] "GET HTTP/1.0" 200'
     mch = re.search(r'\d.\d.\d.\d.\d.', line) # wrong, since \d means only 1 digit
     matched_ip = re.search(r'\d+[.]\d+[.]\d+[.]\d+', line) # this is correct for ip address
