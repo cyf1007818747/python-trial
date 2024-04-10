@@ -89,4 +89,15 @@ def basic_yaml_ops():
     write_yaml()
 
 
-basic_yaml_ops()
+def large_file_ops():
+    r_path = '../resources/test-text.txt'
+    w_path = '../resources/modified-text.txt'
+    with open(r_path, 'r') as source_file, open(w_path, 'w') as modified_file:
+        # this iteration approach will open only one line of the file
+        for line in source_file:
+            line = line[:-1] # since originally, each line ends with \n
+            line += ' -- modified by Chris on 4.10\n'
+            modified_file.write(line)
+
+
+large_file_ops()
