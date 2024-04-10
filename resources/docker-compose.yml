@@ -1,0 +1,19 @@
+services:
+    adminer:
+        image: adminer
+        ports:
+        - 123456:654321
+        - 1
+        - '2'
+        - 3
+        restart: always
+    db:
+        environment:
+            POSTGRES_PASSWORD: CCPostgresPasswordDocker+123456
+            POSTGRES_USER: cc_postgres_user_docker
+        image: postgres
+        ports:
+        - 5432:5432
+        restart: always
+        shm_size: 128mb
+version: '3.9'

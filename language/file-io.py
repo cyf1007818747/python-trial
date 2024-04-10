@@ -44,7 +44,7 @@ def basic_json_ops():
             print('myjson type:', type(myjson_r)) # type is dict
             print('myjson["scripts"] type:', type(myjson_r['scripts']))
 
-
+    # only suitable for very small files
     def write_json(): # *
         with open(json_path, 'r') as jsonfile:
             myjson_r = json.load(jsonfile)
@@ -60,5 +60,33 @@ def basic_json_ops():
     read_json()
 
 
+def basic_yaml_ops():
+    from pprint import pprint
+    try:
+        import yaml
+    except ImportError:
+        print('You should install pyyaml in your env before calling basic_yaml_ops().')
 
-basic_json_ops()
+    yaml_path = '../resources/docker-compose.yml'
+
+    def read_yaml():
+        with open(yaml_path, 'r') as yamlfile:
+            myyaml_r = yaml.safe_load(yamlfile) # skip comments
+            pprint(myyaml_r)
+            print('type myyaml_r:', type(myyaml_r)) # dict type
+
+    # only suitable for very small files
+    def write_yaml():
+        with open(yaml_path, 'r') as yamlfile:
+            myyaml_r = yaml.safe_load(yamlfile) # skip comments
+
+        print('------', myyaml_r['services']['adminer']['ports'])
+        myyaml_r['services']['adminer']['ports'] = ['123456:654321', 1, 2, 3]
+
+        with open(yaml_path, 'w') as yamlfile:
+            yaml.dump(myyaml_r, yamlfile, indent=4)
+
+    write_yaml()
+
+
+basic_yaml_ops()
