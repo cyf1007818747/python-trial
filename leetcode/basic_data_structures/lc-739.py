@@ -24,4 +24,21 @@ class Solution:
 
         return rtn
     
-# todo: practice more on monotonic stack
+# this is you write a gain 2 wweks later
+# start to AC - 11:53
+# AC
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        stack = []
+        ans = [0] * len(temperatures)
+
+        for i in range(len(temperatures)):
+            while stack and temperatures[stack[-1]] < temperatures[i]:
+                ans[stack[-1]] = i - stack[-1]
+                # details !!! # *
+                # // ans.pop()
+                stack.pop()
+            
+            stack.append(i)
+
+        return ans
