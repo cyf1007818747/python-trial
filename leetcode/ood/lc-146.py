@@ -90,6 +90,13 @@ class LRUCache2:
 # use double ended linked list
 # start to AC - 34:00
 # AC
+class DEListNode:
+    def __init__(self, key = 0, value: int = 0): # initially no key
+        self.key = key # initially not added
+        self.value = value
+        self.prev = None
+        self.next = None
+
 class LRUCache3:
     def __init__(self, capacity: int):
         self.cap = capacity
@@ -142,13 +149,6 @@ class LRUCache3:
             # // self.dic.popitem(lastNode.key)
             self.dic.pop(lastNode.key)
 
-class DEListNode:
-    def __init__(self, key = 0, value: int = 0): # initially no key
-        self.key = key # initially not added
-        self.value = value
-        self.prev = None
-        self.next = None
-
 
 # write deque solution again, but should be quicker this time
 # start to AC - 6:48
@@ -184,4 +184,90 @@ class LRUCache4:
         if len(self.dq) > self.cap:
             key_to_rm = self.dq.popleft()
             self.dic.pop(key_to_rm)
+
+
+# write double ended linked list sol again after 2 weeks
+# start to AC - 39:03
+# AC
+
+# reflection: when you write the code, the naming is very mis-ordered
+# you switch between node / new_node, and old_prev / second_last, and want to rename
+# self.head and self.tail to self.dhead and self.dtail
+# please pay attention fo naming !! (by practicing) # *
+
+# use a double ended linked list to store added key, value
+# use a map to store all the nodes in the linked list
+
+# tip: use a dummy head and a dummy tail
+class ListNode:
+    def __init__(self, key = 0, val = 0):
+        self.val = val
+        self.key = key
+        self.prev = None
+        self.next = None
+
+class LRUCache5:
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.dic = {}
+        self.head = ListNode()
+        self.tail = ListNode()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    # get: check the map and return
+    def get(self, key: int) -> int:
+        if self.dic.get(key) == None:
+            return -1
         
+        # you lost all the code below in this function
+        # this is because you forget that get should change the order of node as well
+        # root cause: not deep understanding of the question # *
+        node = self.dic[key]
+        old_prev, old_next = node.prev,  node.next
+        # link the old_prev and old_next
+        old_prev.next, old_next.prev = old_next, old_prev
+        # remove old links on node
+        node.prev, node.next = None, None
+
+        old_head = self.head.next
+        self.head.next, node.prev = node, self.head
+        node.next, old_head.prev = old_head, node
+
+        return self.dic[key].val
+
+    # put:
+    # for a new k, v pair:
+    # > if key does not exist, insert into the head of linked list and update map
+    # > if key exist, move it to the front of the linked list
+    # if out of capacity after insertion (by checking map size): remove the tail of linked list
+    def put(self, key: int, value: int) -> None:
+        if self.dic.get(key) == None:
+            node = ListNode(key, value)
+            self.dic[key] = node
+            old_head = self.head.next
+            self.head.next, node.prev = node, self.head
+            node.next, old_head.prev = old_head, node
+
+            # check capacity
+            if len(self.dic) > self.cap:
+                # print('--self.dic', self.dic)
+                tail_node = self.tail.prev
+                self.dic.pop(tail_node.key)
+                # print('----self.dic', self.dic)
+                second_last = tail_node.prev
+                second_last.next, self.tail.prev = self.tail, second_last
+
+            return
+        
+        node = self.dic[key]
+        node.val = value
+        old_prev, old_next = node.prev, node.next
+        # link the old_prev and old_next
+        old_prev.next, old_next.prev = old_next, old_prev
+        # remove old links on node
+        node.prev, node.next = None, None
+        # add node to the head
+        old_head = self.head.next
+        self.head.next, node.prev = node, self.head
+        node.next, old_head.prev = old_head, node
