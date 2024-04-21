@@ -63,4 +63,50 @@ class Solution:
             return odd_head
         else:
             return even_head
-                
+
+# write again on April 21
+# start to AC - 18:09
+# AC
+class Solution2:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        cur = head
+        odd_dhead = ListNode(0)
+        even_dhead = ListNode(0)
+        odd_tail, even_tail = odd_dhead, even_dhead
+
+        # cur is always odd index
+        while cur:
+            odd_tail.next = cur
+            if cur.next:
+                even_tail.next = cur.next
+            else:
+                odd_tail = odd_tail.next
+                break
+            cur = cur.next.next
+            odd_tail, even_tail = odd_tail.next, even_tail.next
+
+        odd_tail.next, even_tail.next = even_dhead.next, None
+        return odd_dhead.next
+
+
+# use 2 pointers after reading official solution
+# 1 - 2 - 3 - 4
+# 1 - 2 - 3 - 4 - 5
+class Solution3:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return None
+        
+        odd, even = head, head.next
+        even_head = even
+
+        while odd and odd.next:
+            odd.next = even.next
+            if odd.next:
+                even.next = odd.next.next
+            else:
+                break
+            odd, even = odd.next, even.next
+
+        odd.next = even_head
+        return head
