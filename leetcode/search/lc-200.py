@@ -1,5 +1,6 @@
 from typing import List
 
+# AC
 directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
