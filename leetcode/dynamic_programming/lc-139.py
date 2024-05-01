@@ -49,6 +49,26 @@ def wordBreak_lessedConfused(s: str, wordDict: List[str]) -> bool:
     
     return dp[-1]
 
+# write again at 01 May
+# start to AC - 15:17
+# AC
+# dp[i]: whether s 0 to i-1 inclusive can be segmented
+# ------ then: dp[i] = or of all dp[i -j], if there is a word in dic of length j
+# then: dp[i] = true if any dp[i - l] for s[i-l:i] in dict for l in (1, 21)
+# else false
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordSet = set(wordDict)
+        dp = [False] * (len(s) + 1)
+        dp[0] = True
+
+        for i in range(1, len(s) + 1):
+            for l in range(1, 21):
+                if i - l >= 0 and s[i-l:i] in wordSet and dp[i-l]:
+                    dp[i] = True
+                    break
+        
+        return dp[-1]
 
 s = "leetcode"
 wordDict = ["leet", "code"]
