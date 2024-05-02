@@ -1,5 +1,6 @@
 from typing import List
 
+# AC
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         ans = []
@@ -37,4 +38,3 @@ class Solution:
                 break
 
         return ans
- 
